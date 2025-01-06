@@ -14,8 +14,8 @@
     }
   ],
   "url": "https://github.com/death-save/combat-carousel",
-  "manifest": "https://raw.githubusercontent.com/remyke/combat-carousel/3.3.4-vtt12compatibile/module.json",
-  "download": "https://github.com/remyke/combat-carousel/archive/3.3.4-vtt12compatibile.zip",
+  "manifest": "https://raw.githubusercontent.com/remyke/combat-carousel/refs/tags/0.3.4-vtt12compatibile/module.json",
+  "download": "https://github.com/remyke/combat-carousel/archive/refs/tags/0.3.4-vtt12compatibile.zip",
   "bugs": "https://github.com/death-save/combat-carousel/issues",
   "changelog": "https://github.com/death-save/combat-carousel/CHANGELOG.md",
   "readme": "https://github.com/death-save/combat-carousel/wiki/",
