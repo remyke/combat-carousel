@@ -29,7 +29,7 @@ export default class CombatCarousel extends Application {
      * @override
      */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "combat-carousel",
             template: "modules/combat-carousel/templates/combat-carousel.hbs",
             popOut: false,
@@ -1237,7 +1237,7 @@ export default class CombatCarousel extends Application {
             const tarW = width || el.offsetWidth;
             const minW = parseInt(el.style.minWidth) || (pop ? MIN_WINDOW_WIDTH : 0);
             const maxW = parseInt(el.style.maxWidth) || window.innerWidth;
-            p.width = width = Math.clamped(tarW, minW, maxW);
+            p.width = width = Math.clamp(tarW, minW, maxW);
             el.style.width = width+"px";
             if ( (width + p.left) > window.innerWidth ) left = p.left;
         }
@@ -1249,7 +1249,7 @@ export default class CombatCarousel extends Application {
             const tarH = height || (el.offsetHeight + 1);
             const minH = parseInt(styles.minHeight) || (pop ? MIN_WINDOW_HEIGHT : 0);
             const maxH = Number.isFinite(parseInt(styles.maxHeight)) ? parseInt(styles.maxHeight) : window.innerHeight;
-            p.height = height = Math.clamped(tarH, minH, maxH);
+            p.height = height = Math.clamp(tarH, minH, maxH);
             el.style.height = height+"px";
             if ( (height + p.top) > window.innerHeight ) top = p.top;
         }
@@ -1259,7 +1259,7 @@ export default class CombatCarousel extends Application {
         if ( (pop && !el.style.left) || Number.isFinite(left) ) {
             const tarL = Number.isFinite(left) ? left : (window.innerWidth - width) / 2;
             const maxL = Math.max(window.innerWidth - width, 0);
-            p.left = left = Math.clamped(tarL, 0, maxL);
+            p.left = left = Math.clamp(tarL, 0, maxL);
             el.style.left = left+"px";
         }
 
@@ -1267,7 +1267,7 @@ export default class CombatCarousel extends Application {
         if ( (pop && !el.style.top) || Number.isFinite(top) ) {
             const tarT = Number.isFinite(top) ? top : (window.innerHeight - height) / 2;
             const maxT = Math.max(window.innerHeight - height, 0);
-            p.top = top = Math.clamped(tarT, 0, maxT);
+            p.top = top = Math.clamp(tarT, 0, maxT);
             el.style.top = p.top+"px";
         }
 
@@ -1286,7 +1286,7 @@ export default class CombatCarousel extends Application {
      * Resets Carousel to its default position and sets width based on contents
      */
     resetPosition() {
-        const defaultPosition = mergeObject(DEFAULT_CONFIG.appPosition, {
+        const defaultPosition = foundry.utils.mergeObject(DEFAULT_CONFIG.appPosition, {
             width: this._getMinimumWidth()
         });
 
@@ -1332,7 +1332,7 @@ export default class CombatCarousel extends Application {
      * Saves the current position of the Combat Carousel to storage
      */
     _savePosition() {
-        const safePosition = duplicate(this.position);
+        const safePosition = foundry.utils.duplicate(this.position);
         delete safePosition.width;
         delete safePosition.height;
 
@@ -1436,9 +1436,9 @@ export default class CombatCarousel extends Application {
 
         const hasPerm = game.user.isGM 
             || (overlayPermissionSetting === permAll) 
-            || ((overlayPermissionSetting === permOwner) && actor.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.OWNER)) 
-            || ((overlayPermissionSetting === permObserver) && actor.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER))
-			|| ((overlayPermissionSetting === permLimited) && actor.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED));
+            || ((overlayPermissionSetting === permOwner) && actor.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER)) 
+            || ((overlayPermissionSetting === permObserver) && actor.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER))
+			|| ((overlayPermissionSetting === permLimited) && actor.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED));
 
         switch (showOverlaySetting) {
             case showAlways:
@@ -1490,9 +1490,9 @@ export default class CombatCarousel extends Application {
 
         const hasPerm = game.user.isGM 
             || (initiativePermissionSetting === permAll) 
-            || ((initiativePermissionSetting === permOwner) && actor?.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.OWNER)) 
-            || ((initiativePermissionSetting === permObserver) && actor?.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER))
-			|| ((initiativePermissionSetting === permLimited) && actor?.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED));
+            || ((initiativePermissionSetting === permOwner) && actor?.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER)) 
+            || ((initiativePermissionSetting === permObserver) && actor?.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER))
+			|| ((initiativePermissionSetting === permLimited) && actor?.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED));
 
         switch (showInitiativeSetting) {
             case showAlways:
@@ -1550,9 +1550,9 @@ export default class CombatCarousel extends Application {
 
         const hasPerm = game.user.isGM 
             || (initiativePermissionSetting === permAll) 
-            || ((initiativePermissionSetting === permOwner) && actor?.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.OWNER)) 
-            || ((initiativePermissionSetting === permObserver) && actor?.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER))
-			|| ((initiativePermissionSetting === permLimited) && actor?.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED));
+            || ((initiativePermissionSetting === permOwner) && actor?.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER)) 
+            || ((initiativePermissionSetting === permObserver) && actor?.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER))
+			|| ((initiativePermissionSetting === permLimited) && actor?.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED));
 
         switch (showInitiativeIconSetting) {
             case showAlways:
@@ -1611,9 +1611,9 @@ export default class CombatCarousel extends Application {
 
         const hasPerm = game.user.isGM 
             || (barPermissionSetting === permAll) 
-            || ((barPermissionSetting === permOwner) && actor?.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.OWNER)) 
-            || ((barPermissionSetting === permObserver) && actor?.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER))
-			|| ((barPermissionSetting === permLimited) && actor?.testUserPermission(user, CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED));
+            || ((barPermissionSetting === permOwner) && actor?.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER)) 
+            || ((barPermissionSetting === permObserver) && actor?.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER))
+			|| ((barPermissionSetting === permLimited) && actor?.testUserPermission(user, CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED));
 
         switch (showBarSetting) {
             case showAlways:

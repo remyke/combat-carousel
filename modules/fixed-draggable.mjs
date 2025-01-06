@@ -29,7 +29,7 @@ export default class FixedDraggable extends Draggable {
         }
         
         this.initialPosition = appPosition;
-        this.position = duplicate(appPosition);
+        this.position = foundry.utils.duplicate(appPosition);
         this._initial = {x: event.clientX, y: event.clientY};
         // Add temporary handlers
         window.addEventListener(...this.handlers.dragMove);
@@ -85,7 +85,7 @@ export default class FixedDraggable extends Draggable {
         if ( (now - this._moveTime) < (1000/60) ) return;
         this._moveTime = now;
         // Record initial position
-        this.position = duplicate(this.app.position);
+        this.position = foundry.utils.duplicate(this.app.position);
         if ( this.position.height === "auto" ) this.position.height = this.element.clientHeight;
         if ( this.position.width === "auto" ) this.position.width = this.element.clientWidth;
         this._initial = {x: event.clientX, y: event.clientY};

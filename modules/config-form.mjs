@@ -23,7 +23,7 @@ export default class CombatCarouselConfig extends FormApplication {
      * @override
      */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "combat-carousel-config",
             template: `${TEMPLATE_PATH}/config-form.hbs`,
             title: "COMBAT_CAROUSEL.OVERLAY_CONFIG.Title",
@@ -52,7 +52,7 @@ export default class CombatCarouselConfig extends FormApplication {
      */
     async _updateObject(event, formData) {
         const oldValues = game.settings.get(NAME, SETTING_KEYS.overlaySettings);
-        const newValues = oldValues ? duplicate(oldValues) : [];
+        const newValues = oldValues ? foundry.utils.duplicate(oldValues) : [];
         const names = [];
         const icons = [];
         const actorProperties = [];
@@ -114,7 +114,7 @@ export default class CombatCarouselConfig extends FormApplication {
     getAttributeChoices() {
         const actorData = {};
         for ( let model of Object.values(game.system.model.Actor) ) {
-            mergeObject(actorData, model);
+            foundry.utils.mergeObject(actorData, model);
         }
         const attributes = TokenDocument.getTrackedAttributes(actorData, []);
         //attributes.bar.forEach(a => a.push("value"));
